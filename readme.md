@@ -10,9 +10,8 @@
 - Second Principe: The only way to change the state is to emit an action, an object describing what happened.
 - Third Principle: To specify how the state tree is transformed by actions, you write pure reducers.
 
-    Reducer - (previousState, action) => newState
+  Reducer - (previousState, action) => newState
 
-
-## FLow
+## Flow of the redux
 
 - JS APP -> (dispatch) Action -> Reducer ->(subcribed) Store-> JS APP
