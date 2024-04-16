@@ -16,7 +16,9 @@
 
 ## Flow of the redux
 
-- JS APP -> (dispatch) Action -> Reducer ->(subcribed) Store-> JS APP
+- JS APP -> (dispatch) Action & Action Creators -> Reducer -> (subcribed) Store-> JS APP
+
+- Action is an object with type property
 
 ---
 
@@ -62,5 +64,69 @@
   case: FETCH_USERS_FAILURE
         loading: false
         error: error
+
+  ```
+
+---
+
+### Let's create icecream going with the flow
+
+### Folder Struter
+
+- redux -> icecream -> icecreamTypes.js, icecreamActions.js, icecreamReducer.js,
+
+  ```
+  iceCreamTypes.js
+
+  export const BUY_ICECREAM = BUY_ICECREAM
+
+  ```
+
+  ```
+  icecreamActions.js
+
+  import {BUY_ICECREAM} from "./iceCreamTypes"
+
+  export const buyIceCream = () => {
+    return {
+      type: BUY_ICECREAM
+    }
+  }
+  ```
+
+  ```
+
+  index.js (to import it to our components later)
+
+  export {BUY_ICECREAM} from './iceCream/icecreamActions.js'
+
+  ```
+
+  ```
+  iceCreamReducer.js
+
+  import {BUY_ICECREAM} from "./iceCreamTypes"
+
+  const initalState = {
+    numOfIceCream: 20
+  }
+
+  const iceCreamReducer = (state = initalState, action) => {
+
+    switch(action.type) {
+      case BUY_ICECREAM: return {
+        ...state,
+        numOfIceCream = state.numOfIceCream - 1
+      }
+
+      default: return state
+    }
+  }
+
+  export default iceCreamReducer
+
+  ```
+
+  ```
 
   ```

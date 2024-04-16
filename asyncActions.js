@@ -1,6 +1,9 @@
 //  4 - Import Redux and createStore function
 const redux = require("redux");
 const createStore = redux.createStore;
+const applyMiddleware = redux.applyMiddleware;
+const thunkMiddleware = require("redux-thunk").default;
+const axios = require("axios");
 
 // 1 - Define initial state
 const initalState = {
@@ -69,5 +72,24 @@ const reducers = (state = initalState, action) => {
   }
 };
 
+const fetchUser = () => {
+  return function (dispatch) {
+    axios
+      .get("https://jsonplaceholder.typicode.com/users")
+      .then((response) => {
+        // response.data
+        const users = response.data.map((user) => user.id);
+        dispatch(fetchUserSuccess(users));
+      })
+      .catch((error) => {
+        // error.message
+        dispatch(fetchUserFailure(error.message));
+      });
+  };
+};
 // 5 - Create Redux store with the reducers
-const store = createStore(reducers);
+const store = createStore(reducers, applyMiddleware(thunkMiddleware));
+store.subscribe(() => {
+  console.log(store.getState());
+});
+store.dispatch(fetchUser);
